@@ -2,7 +2,11 @@ let header = document.querySelector("h1")
 let battleButton = document.querySelector("#battle")
 let leaderButton = document.querySelector("#leader")
 let addAFighter = document.querySelector("#addFighter")
-let fighterSpan = document.querySelector("#fighterSpan")
+let fighterDiv = document.querySelector("#fighterDiv")
+let fighterOneName = document.querySelector('p#fighterOneName')
+let fighterTwoName = document.querySelector('p#fighterTwoName')
+let fighterOneImage = document.querySelector('img#fighterOneAvatar')
+let fighterTwoImage = document.querySelector('img#fighterTwoAvatar')
 let allFighters = document.querySelector("#fighters")
 let displayFighter = {}
 
@@ -25,7 +29,7 @@ allFighters.addEventListener("click", function (){
         fighterAvatar.alt = fighter.name
         fighterSpan.append(fighterDiv, fighterName, fighterAvatar)   
         displayFighter = fighter
-        randomFighter(displayFighter)
+ 
     }
 })
 function randomFighter() {
@@ -43,16 +47,35 @@ function randomFighter() {
 
            
 //     })
+
+function randomNumber() {
+    let i = Math.floor(Math.random() * (fighters.length))
+    return i
+}
 battleButton.addEventListener("click", function(evt) {
-    fetch("http://localhost:3000/fighters")
+  
+    fetch(`http://localhost:3000/fighters/${fighterID}`)
     .then (res => res.json())
-    .then (function(fighters){
-        function randomNumber() {
-            let i = Math.floor(Math.random() * (fighters.length))
-            return i
-        }
-        let p = document.createElement("p")
-        p.innerText = fighters[randomNumber()].name
-        fighterSpan.append(p)
+    .then (function(fighters){ 
+       
+        let fighterID = fighters[randomNumber()].id
+        fighterOneName.innerText = fighter.name    
+        
+        fighterOneImage.src = fighter.image 
+        fighterOneImage.alt = fighter.name
+        fighterDiv.append( fighterOneName, fighterOneImage)   
+        displayFighter = fighter
+        
+        
+        // fighterOneName.innerText = fighters[randomNumber()].name 
+
+        // fighterOneImage.src = fighters[randomNumber()][im]
+        
+      
+        console.log(fighterID)
+        
+
+
+    
     })
 })
