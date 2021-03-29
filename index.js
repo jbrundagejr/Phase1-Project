@@ -124,11 +124,14 @@ allFighters.addEventListener('click', function(){
         .then(res => res.json())
         .then(function(fighters){
             fighters.forEach(function(fighter){
-                turnFighterObjtoDiv(fighter)
+                turnFighterObjToCard(fighter)
             })
         })
+})
     
-    function turnFighterObjtoDiv(fighter){
+
+    
+function turnFighterObjToCard(fighter){
         displayFighter = fighter
         let fighterDiv = document.createElement("div")
         fighterDiv.id = fighter.name
@@ -139,8 +142,8 @@ allFighters.addEventListener('click', function(){
         fighterAvatar.alt = fighter.name
         arena.append(fighterDiv, fighterName, fighterAvatar)
         newFighter = fighter   
-    }
-})
+}
+
 addFighter.addEventListener("click", function(){
     let newFighterForm = document.createElement("form")
     let userFighterName = document.createElement("input")
@@ -174,9 +177,20 @@ addFighter.addEventListener("click", function(){
             .then(res => res.json())
             .then(function(userNewFighter){
                 newFighter = userNewFighter
-                turnFighterObjToDiv(userNewFighter)
+                turnFighterObjToCard(userNewFighter)
                 console.log(userNewFighter)
             })
 
     })
 })
+
+// leaderBoardButton.addEventListener('click', function() {
+//     fetch('http://localhost:3000')
+//          .then(res => res.json())
+//          .then(function(fightersArr){
+//              let copyofFightersArr = [...fightersArr] 
+//              copyofFightersArr.sort(function(fighter[0].wins, fighter[1].wins){
+//                     return fighter[0].wins - fighter[1].wins
+//              })
+//          })
+// })
