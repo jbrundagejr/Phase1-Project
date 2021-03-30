@@ -184,13 +184,16 @@ addFighter.addEventListener("click", function(){
     })
 })
 
-// leaderBoardButton.addEventListener('click', function() {
-//     fetch('http://localhost:3000')
-//          .then(res => res.json())
-//          .then(function(fightersArr){
-//              let copyofFightersArr = [...fightersArr] 
-//              copyofFightersArr.sort(function(fighter[0].wins, fighter[1].wins){
-//                     return fighter[0].wins - fighter[1].wins
-//              })
-//          })
-// })
+leaderBoardButton.addEventListener('click', function() {
+    fetch('http://localhost:3000')
+         .then(res => res.json())
+         .then(function(fightersArr){
+             let copyofFightersArr = [...fightersArr] 
+             copyofFightersArr.wins.sort(function(a, b){
+                    return b.wins - a.wins
+             })
+                copyofFightersArr.forEach(fighter => {
+                    turnFighterObjToCard(fighter)
+                });
+         })
+})
