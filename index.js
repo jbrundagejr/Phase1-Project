@@ -11,19 +11,19 @@ let fighterTwoName = document.querySelector('#fighterTwoName')
 let fighterTwoAvatar = document.querySelector("#fighterTwoAvatar")
 let fighterTwoStats = document.querySelector("#fighterTwoStats")
 let fighterTwoWins = document.querySelector("#fighterTwoWins")
+let formContainer = document.querySelector("#formContainer")
 let displayFighter1 = {}
 let displayFighter2 = {}
+let newFighter = {}
 
 
 battleButton.addEventListener('click', function(){
     fetch("http://localhost:3000/fighters")
         .then(res => res.json())
         .then(function(fightersArr){
-            console.log(fightersArr)
             const randomFighter = fightersArr[Math.floor(
                 Math.random() * fightersArr.length
             )]
-            console.log(randomFighter)
             turnFighterObjToDiv(randomFighter)
             })
     function turnFighterObjToDiv(fighter){
@@ -33,7 +33,6 @@ battleButton.addEventListener('click', function(){
         fighterOneAvatar.src = fighter.image
         fighterOneStats.innerText = (Object.entries(fighter.stats))
         fighterOneWins.innerText = `${fighter.name} wins!`
-        console.log(fighterOneWins)
         fighterOneWins.addEventListener('click', function(){
             let fighterId = displayFighter1.id
             fetch(`http://localhost:3000/fighters/${fighterId}`,{
@@ -73,11 +72,9 @@ battleButton.addEventListener('click', function(){
     fetch("http://localhost:3000/fighters")
         .then(res => res.json())
         .then(function(fightersArr){
-            console.log(fightersArr)
             const randomFighter = fightersArr[Math.floor(
                 Math.random() * fightersArr.length
             )]
-            console.log(randomFighter)
             turnFighterObjToDiv(randomFighter)
             })
     function turnFighterObjToDiv(fighter){
@@ -140,6 +137,46 @@ allFighters.addEventListener('click', function(){
         let fighterAvatar = document.createElement("img")
         fighterAvatar.src = fighter.image
         fighterAvatar.alt = fighter.name
-        arena.append(fighterDiv, fighterName, fighterAvatar)   
+        arena.append(fighterDiv, fighterName, fighterAvatar)
+        newFighter = fighter   
     }
+})
+addFighter.addEventListener("click", function(){
+    let newFighterForm = document.createElement("form")
+    let userFighterName = document.createElement("input")
+        userFighterName.placeholder = "Fighter name"
+        userFighterName.id = "userFighterNameId"
+    let userFighterAvatar = document.createElement("input")
+        userFighterAvatar.placeholder = "Your img URL here"
+        userFighterAvatar.id = "userFighterAvatarId"
+    let submitButton = document.createElement("button")
+        submitButton.innerText = "Submit"
+    newFighterForm.append(userFighterName, userFighterAvatar, submitButton)
+    formContainer.append(newFighterForm)
+    
+    formContainer.addEventListener("submit", function(e){
+        e.preventDefault()
+        let userFighterInput = e.target.userFighterNameId.value
+        console.log(userFighterInput)
+        let userFighterImg = e.target.userFighterAvatarId.value
+        fetch(`http://localhost:3000/fighters`,{
+            method: 'POST',
+            headers: {
+                "Content-Type" : "application/json",
+                Accept: "application/json"     
+            },
+            body: JSON.stringify({
+                name: userFighterInput,
+                image: userFighterImg,
+                wins: 0
+            })
+        })
+            .then(res => res.json())
+            .then(function(userNewFighter){
+                newFighter = userNewFighter
+                turnFighterObjToDiv(userNewFighter)
+                console.log(userNewFighter)
+            })
+
+    })
 })
