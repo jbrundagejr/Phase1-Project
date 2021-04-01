@@ -1,23 +1,32 @@
-let battleButton = document.querySelector("#battle")
-let allFighters = document.querySelector("#allFighters")
-let leaderBoardButton = document.querySelector("#leaderboard")
-let addFighter = document.querySelector("#addFighter")
-let arena = document.querySelector("#arena")
+let battleButton = document.querySelector("#battleButton")
+let allFightersButton = document.querySelector("#allFightersButton")
+let leaderBoardButton = document.querySelector("#leaderboardButton")
+let addFighterButton = document.querySelector("#addFighterButton")
+
+let battleContainer = document.querySelector("#battleContainer")
+let allFighterContainer = document.querySelector("#allFighterContainer")
+let leaderboardContainer = document.querySelector("#leaderboardContainer")
+let formContainer = document.querySelector("#formContainer")
+
 let fighterOneName = document.querySelector('#fighterOneName')
 let fighterOneAvatar = document.querySelector("#fighterOneAvatar")
 let fighterOneStats = document.querySelector("#fighterOneStats")
 let fighterOneWins = document.querySelector("#fighterOneWins")
+
 let fighterTwoName = document.querySelector('#fighterTwoName')
 let fighterTwoAvatar = document.querySelector("#fighterTwoAvatar")
 let fighterTwoStats = document.querySelector("#fighterTwoStats")
 let fighterTwoWins = document.querySelector("#fighterTwoWins")
-let formContainer = document.querySelector("#formContainer")
+
 let displayFighter1 = {}
 let displayFighter2 = {}
 let newFighter = {}
 
 
 battleButton.addEventListener('click', function(){
+    allFighterContainer.innerHTML = ""
+    leaderboardContainer.innerHTML = ""
+    formContainer.innerHTML = ""
     fetch("http://localhost:3000/fighters")
         .then(res => res.json())
         .then(function(fightersArr){
@@ -119,32 +128,37 @@ battleButton.addEventListener('click', function(){
     }
 })
 
-allFighters.addEventListener('click', function(){
+allFightersButton.addEventListener('click', function(){
+    battleContainer.innerHTML = ""
+    leaderboardContainer.innerHTML = ""
+    formContainer.innerHTML = ""
     fetch("http://localhost:3000/fighters")
         .then(res => res.json())
         .then(function(fighters){
             fighters.forEach(function(fighter){
-                turnFighterObjToCard(fighter)
+                displayFighter = fighter
+                let fighterDiv = document.createElement("div")
+                fighterDiv.id = fighter.name
+                fighterDiv.class = "fighterCard"
+                let fighterName = document.createElement("p")
+                fighterName.innerText = fighter.name    
+                let fighterAvatar = document.createElement("img")
+                fighterAvatar.src = fighter.image
+                fighterAvatar.alt = fighter.name
+                newFighter = fighter
+                let fighterStats = document.createElement("p")
+                fighterStats.innerText = (Object.entries(fighter.stats))
+                allFighterContainer.append(fighterName, fighterAvatar, fighterStats)
             })
         })
 })
     
 
-    
-function turnFighterObjToCard(fighter){
-        displayFighter = fighter
-        let fighterDiv = document.createElement("div")
-        fighterDiv.id = fighter.name
-        let fighterName = document.createElement("p")
-        fighterName.innerText = fighter.name    
-        let fighterAvatar = document.createElement("img")
-        fighterAvatar.src = fighter.image
-        fighterAvatar.alt = fighter.name
-        arena.append(fighterDiv, fighterName, fighterAvatar)
-        newFighter = fighter   
-}
 
-addFighter.addEventListener("click", function(){
+addFighterButton.addEventListener("click", function(){
+    battleContainer.innerHTML = ""
+    leaderboardContainer.innerHTML = ""
+    allFighterContainer.innerHTML = ""
     let newFighterForm = document.createElement("form")
     let userFighterName = document.createElement("input")
         userFighterName.placeholder = "Fighter name"
@@ -185,15 +199,29 @@ addFighter.addEventListener("click", function(){
 })
 
 leaderBoardButton.addEventListener('click', function() {
-    fetch('http://localhost:3000')
+    battleContainer.innerHTML = ""
+    allFighterContainer.innerHTML = ""
+    formContainer.innerHTML = ""
+    fetch('http://localhost:3000/fighters')
          .then(res => res.json())
          .then(function(fightersArr){
              let copyofFightersArr = [...fightersArr] 
-             copyofFightersArr.wins.sort(function(a, b){
+             copyofFightersArr.sort(function(a, b){
                     return b.wins - a.wins
              })
                 copyofFightersArr.forEach(fighter => {
-                    turnFighterObjToCard(fighter)
-                });
+                    displayFighter = fighter
+                    let fighterDiv = document.createElement("div")
+                    fighterDiv.id = fighter.name
+                    let fighterName = document.createElement("p")
+                    fighterName.innerText = fighter.name    
+                    let fighterAvatar = document.createElement("img")
+                    fighterAvatar.src = fighter.image
+                    fighterAvatar.alt = fighter.name
+                    let fighterWins = document.createElement("p")
+                    fighterWins.innerText = `${fighter.name} has ${fighter.wins} wins!`
+                    newFighter = fighter 
+                    leaderboardContainer.append(fighterName, fighterAvatar, fighterWins)
+                })
          })
 })
