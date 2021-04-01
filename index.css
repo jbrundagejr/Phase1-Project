@@ -4,3 +4,14 @@ h1 {
 div#nav {
     text-align: center;
 }
+
+img.fighterCardAvatar {
+    width: 350px;
+}
+.fighterCardName {
+    font-size: larger;
+}
+.fighterCardDiv {
+    display: inline-block;
+    margin: 0 auto
+}
