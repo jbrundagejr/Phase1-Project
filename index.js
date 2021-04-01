@@ -22,10 +22,10 @@ let displayFighter1 = {}
 let displayFighter2 = {}
 let newFighter = {}
 
-
 battleButton.addEventListener('click', function(){
-    allFighterContainer.innerHTML = ""
+    // hideBattleContainer()
     leaderboardContainer.innerHTML = ""
+    allFighterContainer.innerHTML = ""
     formContainer.innerHTML = ""
     fetch("http://localhost:3000/fighters")
         .then(res => res.json())
@@ -33,9 +33,30 @@ battleButton.addEventListener('click', function(){
             const randomFighter = fightersArr[Math.floor(
                 Math.random() * fightersArr.length
             )]
-            turnFighterObjToDiv(randomFighter)
+            turnFighter1ToCard(randomFighter)
             })
-    function turnFighterObjToDiv(fighter){
+})
+
+battleButton.addEventListener('click', function(){
+    fetch("http://localhost:3000/fighters")
+        .then(res => res.json())
+        .then(function(fightersArr){
+            const randomFighter = fightersArr[Math.floor(
+                Math.random() * fightersArr.length
+            )]
+            turnFighter2ToCard(randomFighter)
+            })
+})
+
+// function hideBattleContainer() {
+//     if (battleContainer.style.display === "none") {
+//       battleContainer.style.display = "block";
+//     } else {
+//       battleContainer.style.display = "none";
+//     }
+// }
+
+function turnFighter1ToCard(fighter){
         displayFighter1 = fighter
         displayFighter1.id = fighter.id
         fighterOneName.innerText = fighter.name
@@ -72,82 +93,72 @@ battleButton.addEventListener('click', function(){
                     fighterTwoAvatar.src = fighter.image
                     fighterTwoStats.innerText = (Object.entries(fighter.stats))
                     fighterTwoWins.innerText = `${fighter.name} wins!`
-                }
+               }
         })
-    }
-})
+}
 
-battleButton.addEventListener('click', function(){
-    fetch("http://localhost:3000/fighters")
-        .then(res => res.json())
-        .then(function(fightersArr){
-            const randomFighter = fightersArr[Math.floor(
-                Math.random() * fightersArr.length
-            )]
+
+
+
+function turnFighter2ToCard(fighter){
+    displayFighter2 = fighter
+    displayFighter2.id = fighter.id
+    fighterTwoName.innerText = fighter.name
+    fighterTwoAvatar.src = fighter.image
+    fighterTwoStats.innerText = (Object.entries(fighter.stats))
+    fighterTwoWins.innerText = `${fighter.name} wins!`
+    fighterTwoWins.addEventListener('click', function(){
+    let fighterId = displayFighter2.id
+    fetch(`http://localhost:3000/fighters/${fighterId}`,{
+        method: "PATCH",
+        headers: { 
+            "Content-Type": "application/json" 
+        },
+        body: JSON.stringify({
+            wins: displayFighter2.wins + 1,
+        }),
+    })
+        .then((res) => res.json())
+        .then(function (fighterNewWins) {
+            displayFighter2 = fighterNewWins;
+        })
+        fetch("http://localhost:3000/fighters")
+            .then(res => res.json())
+            .then(function(fightersArr){
+                const randomFighter = fightersArr[Math.floor(
+                    Math.random() * fightersArr.length
+                )]
             turnFighterObjToDiv(randomFighter)
             })
-    function turnFighterObjToDiv(fighter){
-        displayFighter2 = fighter
-        displayFighter2.id = fighter.id
-        fighterTwoName.innerText = fighter.name
-        fighterTwoAvatar.src = fighter.image
-        fighterTwoStats.innerText = (Object.entries(fighter.stats))
-        fighterTwoWins.innerText = `${fighter.name} wins!`
-        fighterTwoWins.addEventListener('click', function(){
-            let fighterId = displayFighter2.id
-            fetch(`http://localhost:3000/fighters/${fighterId}`,{
-                method: "PATCH",
-                headers: { 
-                    "Content-Type": "application/json" 
-                },
-                body: JSON.stringify({
-                wins: displayFighter2.wins + 1,
-                }),
-            })
-                .then((res) => res.json())
-                .then(function (fighterNewWins) {
-                    displayFighter2 = fighterNewWins;
-                })
-            fetch("http://localhost:3000/fighters")
-                .then(res => res.json())
-                .then(function(fightersArr){
-                    const randomFighter = fightersArr[Math.floor(
-                        Math.random() * fightersArr.length
-                    )]
-                turnFighterObjToDiv(randomFighter)
-                })
-                function turnFighterObjToDiv(fighter){
-                    displayFighter1 = fighter
-                    displayFighter1.id = fighter.id
-                    fighterOneName.innerText = fighter.name
-                    fighterOneAvatar.src = fighter.image
-                    fighterOneStats.innerText = (Object.entries(fighter.stats))
-                    fighterOneWins.innerText = `${fighter.name} wins!`
-                }
+            function turnFighterObjToDiv(fighter){
+                displayFighter1 = fighter
+                displayFighter1.id = fighter.id
+                fighterOneName.innerText = fighter.name
+                fighterOneAvatar.src = fighter.image
+                fighterOneStats.innerText = (Object.entries(fighter.stats))
+                fighterOneWins.innerText = `${fighter.name} wins!`
+            }
         })
-    }
-})
+}
 
 allFightersButton.addEventListener('click', function(){
-    battleContainer.innerHTML = ""
+    //hideBattleContainer()
     leaderboardContainer.innerHTML = ""
     formContainer.innerHTML = ""
     fetch("http://localhost:3000/fighters")
         .then(res => res.json())
         .then(function(fighters){
             fighters.forEach(function(fighter){
-                displayFighter = fighter
                 let fighterDiv = document.createElement("div")
-                fighterDiv.id = fighter.name
-                fighterDiv.class = "fighterCard"
+                    fighterDiv.id = fighter.name
+                    fighterDiv.class = "fighterCard"
                 let fighterName = document.createElement("p")
-                fighterName.innerText = fighter.name    
+                    fighterName.innerText = fighter.name    
                 let fighterAvatar = document.createElement("img")
-                fighterAvatar.src = fighter.image
-                fighterAvatar.alt = fighter.name
-                newFighter = fighter
+                    fighterAvatar.src = fighter.image
+                    fighterAvatar.alt = fighter.name
                 let fighterStats = document.createElement("p")
-                fighterStats.innerText = (Object.entries(fighter.stats))
+                    fighterStats.innerText = (Object.entries(fighter.stats))
                 allFighterContainer.append(fighterName, fighterAvatar, fighterStats)
             })
         })
@@ -155,7 +166,7 @@ allFightersButton.addEventListener('click', function(){
     
 
 
-addFighterButton.addEventListener("click", function(){
+addFighterButton.addEventListener("click", function(e){
     battleContainer.innerHTML = ""
     leaderboardContainer.innerHTML = ""
     allFighterContainer.innerHTML = ""
@@ -174,7 +185,6 @@ addFighterButton.addEventListener("click", function(){
     formContainer.addEventListener("submit", function(e){
         e.preventDefault()
         let userFighterInput = e.target.userFighterNameId.value
-        console.log(userFighterInput)
         let userFighterImg = e.target.userFighterAvatarId.value
         fetch(`http://localhost:3000/fighters`,{
             method: 'POST',
@@ -192,14 +202,13 @@ addFighterButton.addEventListener("click", function(){
             .then(function(userNewFighter){
                 newFighter = userNewFighter
                 turnFighterObjToCard(userNewFighter)
-                console.log(userNewFighter)
             })
 
     })
 })
 
 leaderBoardButton.addEventListener('click', function() {
-    battleContainer.innerHTML = ""
+    //hideBattleContainer()
     allFighterContainer.innerHTML = ""
     formContainer.innerHTML = ""
     fetch('http://localhost:3000/fighters')
@@ -210,17 +219,17 @@ leaderBoardButton.addEventListener('click', function() {
                     return b.wins - a.wins
              })
                 copyofFightersArr.forEach(fighter => {
-                    displayFighter = fighter
+                        displayFighter = fighter
                     let fighterDiv = document.createElement("div")
-                    fighterDiv.id = fighter.name
+                        fighterDiv.id = fighter.name
                     let fighterName = document.createElement("p")
-                    fighterName.innerText = fighter.name    
+                        fighterName.innerText = fighter.name    
                     let fighterAvatar = document.createElement("img")
-                    fighterAvatar.src = fighter.image
-                    fighterAvatar.alt = fighter.name
+                        fighterAvatar.src = fighter.image
+                        fighterAvatar.alt = fighter.name
                     let fighterWins = document.createElement("p")
-                    fighterWins.innerText = `${fighter.name} has ${fighter.wins} wins!`
-                    newFighter = fighter 
+                        fighterWins.innerText = `${fighter.name} has ${fighter.wins} wins!`
+                        newFighter = fighter 
                     leaderboardContainer.append(fighterName, fighterAvatar, fighterWins)
                 })
          })
