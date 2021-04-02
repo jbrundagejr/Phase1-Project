@@ -16,6 +16,10 @@ let fighterOneAvatar = document.createElement('img')
 fighterOneAvatar.className = "fighterCardAvatar"
 let fighterOneStats = document.createElement('p')
 let fighterOneWins = document.createElement('button')
+fighterOneWins.className = "winButton"
+let vs = document.createElement('p')
+let vsDiv = document.createElement('div')
+vs.id = "vs"
 
 let fighterTwoDiv = document.createElement('div')
 fighterTwoDiv.className = "fighterCardDiv"
@@ -25,6 +29,7 @@ let fighterTwoAvatar = document.createElement('img')
 fighterTwoAvatar.className = "fighterCardAvatar"
 let fighterTwoStats = document.createElement('p')
 let fighterTwoWins = document.createElement('button')
+fighterTwoWins.className = "winButton"
 
 let displayFighter1 = {}
 let displayFighter2 = {}
@@ -64,7 +69,9 @@ function turnFighter1ToCard(fighter){
     fighterOneAvatar.src = fighter.image  
     fighterOneWins.innerText = `${fighter.name} wins!`
     fighterOneDiv.append(fighterOneName, fighterOneAvatar, fighterOneWins)
-    battleContainer.append(fighterOneDiv)
+    vs.innerText = "VS."
+    vsDiv.append(vs)
+    battleContainer.append(fighterOneDiv, vsDiv)
     
     fighterOneWins.addEventListener('click', function(){
         let fighterId = displayFighter1.id
@@ -153,24 +160,25 @@ allFightersButton.addEventListener('click', function(){
             fighters.forEach(function(fighter){
                 let fighterCard = document.createElement("div")
                     fighterCard.id = fighter.name
-                    fighterCard.class = "fighterCard"
+                    fighterCard.className = "fighterCard"
                 let fighterName = document.createElement("p")
-                    fighterName.innerText = fighter.name    
+                    fighterName.innerText = fighter.name
+                    fighterName.className = "fighterName"    
                 let fighterAvatar = document.createElement("img")
                     fighterAvatar.src = fighter.image
                     fighterAvatar.alt = fighter.name
                 let fighterStrength = document.createElement("p")
                     fighterStrength.innerText = `Strength: ${fighter.stats.strength}`
-                    fighterStrength.class = "stats"
+                    fighterStrength.className = "stats"
                 let fighterDefense = document.createElement("p")
                     fighterDefense.innerText = `Defense: ${fighter.stats.defense}`
-                    fighterDefense.class = "stats"
+                    fighterDefense.className = "stats"
                 let fighterSpeed = document.createElement("p")
                     fighterSpeed.innerText = `Speed: ${fighter.stats.speed}`
-                    fighterSpeed.class = "stats"
+                    fighterSpeed.className = "stats"
                 let fighterIntelligence = document.createElement("p")
                     fighterIntelligence.innerText = `Intelligence: ${fighter.stats.intelligence}` 
-                    fighterIntelligence.class = "stats"
+                    fighterIntelligence.className = "stats"
                 fighterCard.append(fighterName, fighterAvatar, fighterStrength, fighterDefense, fighterSpeed, fighterIntelligence)   
                 allFighterContainer.append(fighterCard)
             })
@@ -193,9 +201,10 @@ leaderBoardButton.addEventListener('click', function() {
                         displayFighter = fighter
                     let fighterCard = document.createElement("div")
                         fighterCard.id = fighter.name
-                        fighterCard.class = "fighterCard"
+                        fighterCard.className = "fighterCard"
                     let fighterName = document.createElement("p")
-                        fighterName.innerText = fighter.name    
+                        fighterName.innerText = fighter.name
+                        fighterName.className = "fighterName"    
                     let fighterAvatar = document.createElement("img")
                         fighterAvatar.src = fighter.image
                         fighterAvatar.alt = fighter.name
@@ -203,16 +212,16 @@ leaderBoardButton.addEventListener('click', function() {
                         fighterWins.innerText = `${fighter.name} has ${fighter.wins} wins!`
                     let fighterStrength = document.createElement("p")
                         fighterStrength.innerText = `Strength: ${fighter.stats.strength}`
-                        fighterStrength.class = "stats"
+                        fighterStrength.className = "stats"
                     let fighterDefense = document.createElement("p")
                         fighterDefense.innerText = `Defense: ${fighter.stats.defense}`
-                        fighterDefense.class = "stats"
+                        fighterDefense.className = "stats"
                     let fighterSpeed = document.createElement("p")
                         fighterSpeed.innerText = `Speed: ${fighter.stats.speed}`
-                        fighterSpeed.class = "stats"
+                        fighterSpeed.className = "stats"
                     let fighterIntelligence = document.createElement("p")
                         fighterIntelligence.innerText = `Intelligence: ${fighter.stats.intelligence}` 
-                        fighterIntelligence.class = "stats"
+                        fighterIntelligence.className = "stats"
                     fighterCard.append(fighterName, fighterAvatar, fighterWins, fighterStrength, fighterDefense, fighterSpeed, fighterIntelligence)  
                     leaderboardContainer.append(fighterCard)
                 })

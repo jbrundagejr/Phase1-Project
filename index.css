@@ -1,17 +1,51 @@
 h1 {
     text-align: center;
+    color: rgb(179, 9, 43);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 110px;
+}
+body{
+    background-color: darkgray;
 }
 div#nav {
     text-align: center;
 }
-
+.navButton{
+    color: black;
+    background-color: cornflowerblue;
+}
+.winButton{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
 img.fighterCardAvatar {
-    width: 350px;
+    border-style: double;
+    border-width: 10px; 
+    max-width:600px;
+    max-height:600px;
+    width: auto;
+    height: auto;
+    
 }
 .fighterCardName {
-    font-size: larger;
+    font-size: 60px;
+    margin-bottom: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .fighterCardDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto;
+    text-align: center;
+}
+#battleContainer{
+   display: flex;
+   align-items: center;
+}
+#vs{
     display: inline-block;
-    margin: 0 auto
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 80px;
+    color: rgb(179, 9, 43);
 }
