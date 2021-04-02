@@ -42,7 +42,7 @@ battleButton.addEventListener('click', function(){
     battleContainer.innerHTML = ""
     newFighterContainer.innerHTML = ""
     allFighterContainer.innerHTML = ""
-    fetch("http://localhost:3000/fighters")
+    fetch("https://battle-brawl.herokuapp.com/fighters")
         .then(res => res.json())
         .then(function(fightersArr){
             const randomFighter = fightersArr[Math.floor(
@@ -53,7 +53,7 @@ battleButton.addEventListener('click', function(){
 })
 
 battleButton.addEventListener('click', function(){
-    fetch("http://localhost:3000/fighters")
+    fetch("https://battle-brawl.herokuapp.com/fighters")
         .then(res => res.json())
         .then(function(fightersArr){
             const randomFighter = fightersArr[Math.floor(
@@ -77,7 +77,7 @@ function turnFighter1ToCard(fighter){
     
     fighterOneWins.addEventListener('click', function(){
         let fighterId = displayFighter1.id
-        fetch(`http://localhost:3000/fighters/${fighterId}`,{
+        fetch(`https://battle-brawl.herokuapp.com/fighters/${fighterId}`,{
             method: "PATCH",
             headers: { 
                 "Content-Type": "application/json" 
@@ -91,7 +91,7 @@ function turnFighter1ToCard(fighter){
                 displayFighter1 = fighterNewWins;
             })
 
-        fetch("http://localhost:3000/fighters")
+        fetch("https://battle-brawl.herokuapp.com/fighters")
             .then(res => res.json())
             .then(function(fightersArr){
                 const randomFighter = fightersArr[Math.floor(
@@ -120,7 +120,7 @@ function turnFighter2ToCard(fighter){
     
     fighterTwoWins.addEventListener('click', function(){
         let fighterId = displayFighter2.id
-        fetch(`http://localhost:3000/fighters/${fighterId}`,{
+        fetch(`https://battle-brawl.herokuapp.com/fighters/${fighterId}`,{
             method: "PATCH",
             headers: { 
                 "Content-Type": "application/json" 
@@ -134,7 +134,7 @@ function turnFighter2ToCard(fighter){
                 displayFighter2 = fighterNewWins;
             })
 
-        fetch("http://localhost:3000/fighters")
+        fetch("https://battle-brawl.herokuapp.com/fighters")
             .then(res => res.json())
             .then(function(fightersArr){
                 const randomFighter = fightersArr[Math.floor(
@@ -158,7 +158,7 @@ allFightersButton.addEventListener('click', function(){
     battleContainer.innerHTML = ""
     allFighterContainer.innerHTML = ""
     newFighterContainer.innerHTML = ""
-    fetch("http://localhost:3000/fighters")
+    fetch("https://battle-brawl.herokuapp.com/fighters")
         .then(res => res.json())
         .then(function(fighters){
             fighters.forEach(function(fighter){
@@ -196,7 +196,7 @@ leaderBoardButton.addEventListener('click', function() {
     battleContainer.innerHTML = ""
     allFighterContainer.innerHTML = ""
     newFighterContainer.innerHTML = ""
-    fetch('http://localhost:3000/fighters')
+    fetch('https://battle-brawl.herokuapp.com/fighters')
          .then(res => res.json())
          .then(function(fightersArr){
              let copyofFightersArr = [...fightersArr] 
@@ -262,7 +262,7 @@ newFighterForm.addEventListener("submit", function(e){
     e.preventDefault()
     let userFighterInput = e.target.userFighterNameId.value
     let userFighterImg = e.target.userFighterAvatarId.value
-    fetch(`http://localhost:3000/fighters`,{
+    fetch(`https://battle-brawl.herokuapp.com/fighters`,{
         method: 'POST',
         headers: {
             "Content-Type" : "application/json",
@@ -289,6 +289,5 @@ newFighterForm.addEventListener("submit", function(e){
             newFighterDiv.append(newFighterName, newFighterAvatar)
             newFighterContainer.append(newFighterDiv)
         })
-
     })
 })
