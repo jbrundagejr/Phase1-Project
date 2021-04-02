@@ -275,7 +275,7 @@ formContainer.addEventListener("submit", function(e){
             newFighter.innerText = userNewFighter.name
             newFighter.src = userNewFighter.image
             leaderboardContainer.append(newFighter)
-            leaderBoardButton.append(newFighter)
+            leaderboardContainer.append(newFighter)
         })
 
     })
