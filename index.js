@@ -168,19 +168,19 @@ allFightersButton.addEventListener('click', function(){
                     fighterAvatar.src = fighter.image
                     fighterAvatar.alt = fighter.name
                     fighterAvatar.className = "fighterCardAvatar"
-                let fighterStrength = document.createElement("p")
-                    fighterStrength.innerText = `Strength: ${fighter.stats.strength}`
-                    fighterStrength.className = "stats"
-                let fighterDefense = document.createElement("p")
-                    fighterDefense.innerText = `Defense: ${fighter.stats.defense}`
-                    fighterDefense.className = "stats"
-                let fighterSpeed = document.createElement("p")
-                    fighterSpeed.innerText = `Speed: ${fighter.stats.speed}`
-                    fighterSpeed.className = "stats"
+                // let fighterStrength = document.createElement("p")
+                //     fighterStrength.innerText = `Strength: ${fighter.stats.strength}`
+                //     fighterStrength.className = "stats"
+                // let fighterDefense = document.createElement("p")
+                //     fighterDefense.innerText = `Defense: ${fighter.stats.defense}`
+                //     fighterDefense.className = "stats"
+                // let fighterSpeed = document.createElement("p")
+                //     fighterSpeed.innerText = `Speed: ${fighter.stats.speed}`
+                //     fighterSpeed.className = "stats"
                 let fighterIntelligence = document.createElement("p")
                     fighterIntelligence.innerText = `Intelligence: ${fighter.stats.intelligence}` 
                     fighterIntelligence.className = "stats"
-                fighterCard.append(fighterName, fighterAvatar, fighterStrength, fighterDefense, fighterSpeed, fighterIntelligence)   
+                fighterCard.append(fighterName, fighterAvatar)   
                 allFighterContainer.append(fighterCard)
             })
         })
@@ -213,19 +213,19 @@ leaderBoardButton.addEventListener('click', function() {
                     let fighterWins = document.createElement("p")
                         fighterWins.className = "fighterWins"
                         fighterWins.innerText = `${fighter.name} has ${fighter.wins} wins!`
-                    let fighterStrength = document.createElement("p")
-                        fighterStrength.innerText = `Strength: ${fighter.stats.strength}`
-                        fighterStrength.className = "stats"
-                    let fighterDefense = document.createElement("p")
-                        fighterDefense.innerText = `Defense: ${fighter.stats.defense}`
-                        fighterDefense.className = "stats"
-                    let fighterSpeed = document.createElement("p")
-                        fighterSpeed.innerText = `Speed: ${fighter.stats.speed}`
-                        fighterSpeed.className = "stats"
-                    let fighterIntelligence = document.createElement("p")
-                        fighterIntelligence.innerText = `Intelligence: ${fighter.stats.intelligence}` 
-                        fighterIntelligence.className = "stats"
-                    fighterCard.append(fighterName, fighterAvatar, fighterWins, fighterStrength, fighterDefense, fighterSpeed, fighterIntelligence)  
+                    // let fighterStrength = document.createElement("p")
+                    //     fighterStrength.innerText = `Strength: ${fighter.stats.strength}`
+                    //     fighterStrength.className = "stats"
+                    // let fighterDefense = document.createElement("p")
+                    //     fighterDefense.innerText = `Defense: ${fighter.stats.defense}`
+                    //     fighterDefense.className = "stats"
+                    // let fighterSpeed = document.createElement("p")
+                    //     fighterSpeed.innerText = `Speed: ${fighter.stats.speed}`
+                    //     fighterSpeed.className = "stats"
+                    // let fighterIntelligence = document.createElement("p")
+                    //     fighterIntelligence.innerText = `Intelligence: ${fighter.stats.intelligence}` 
+                    //     fighterIntelligence.className = "stats"
+                    fighterCard.append(fighterName, fighterAvatar, fighterWins)  
                     leaderboardContainer.append(fighterCard)
                 })
          })
@@ -271,6 +271,11 @@ formContainer.addEventListener("submit", function(e){
         .then(res => res.json())
         .then(function(userNewFighter){
             newFighter = userNewFighter
+            newFighter.id = userNewFighter.id
+            newFighter.innerText = userNewFighter.name
+            newFighter.src = userNewFighter.image
+            leaderboardContainer.append(newFighter)
+            leaderBoardButton.append(newFighter)
         })
 
     })
