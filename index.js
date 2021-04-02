@@ -7,29 +7,30 @@ let battleContainer = document.querySelector("#battleContainer")
 let allFighterContainer = document.querySelector("#allFighterContainer")
 let leaderboardContainer = document.querySelector("#leaderboardContainer")
 let formContainer = document.querySelector("#formContainer")
+let newFigherContainer = document.querySelector("#newFigherContainer")
 
 let fighterOneDiv = document.createElement('div')
-fighterOneDiv.className = "battleCardDiv"
+    fighterOneDiv.className = "battleCardDiv"
 let fighterOneName = document.createElement('p')
-fighterOneName.className = "battleCardName"
+    fighterOneName.className = "battleCardName"
 let fighterOneAvatar = document.createElement('img')
-fighterOneAvatar.className = "battleCardAvatar"
+    fighterOneAvatar.className = "battleCardAvatar"
 let fighterOneStats = document.createElement('p')
 let fighterOneWins = document.createElement('button')
-fighterOneWins.className = "winButton"
+    fighterOneWins.className = "winButton"
 let vs = document.createElement('p')
 let vsDiv = document.createElement('div')
-vs.id = "vs"
+    vs.id = "vs"
 
 let fighterTwoDiv = document.createElement('div')
-fighterTwoDiv.className = "battleCardDiv"
+    fighterTwoDiv.className = "battleCardDiv"
 let fighterTwoName = document.createElement('p')
-fighterTwoName.className = "battleCardName"
+    fighterTwoName.className = "battleCardName"
 let fighterTwoAvatar = document.createElement('img')
-fighterTwoAvatar.className = "battleCardAvatar"
+    fighterTwoAvatar.className = "battleCardAvatar"
 let fighterTwoStats = document.createElement('p')
 let fighterTwoWins = document.createElement('button')
-fighterTwoWins.className = "winButton"
+    fighterTwoWins.className = "winButton"
 
 let displayFighter1 = {}
 let displayFighter2 = {}
@@ -39,8 +40,9 @@ battleButton.addEventListener('click', function(){
     leaderboardContainer.innerHTML = ""
     formContainer.innerHTML = ""
     battleContainer.innerHTML = ""
+    newFighterContainer.innerHTML = ""
     allFighterContainer.innerHTML = ""
-    fetch("https://battle-brawl.herokuapp.com/fighters")
+    fetch("http://localhost:3000/fighters")
         .then(res => res.json())
         .then(function(fightersArr){
             const randomFighter = fightersArr[Math.floor(
@@ -51,7 +53,7 @@ battleButton.addEventListener('click', function(){
 })
 
 battleButton.addEventListener('click', function(){
-    fetch("https://battle-brawl.herokuapp.com/fighters")
+    fetch("http://localhost:3000/fighters")
         .then(res => res.json())
         .then(function(fightersArr){
             const randomFighter = fightersArr[Math.floor(
@@ -68,14 +70,14 @@ function turnFighter1ToCard(fighter){
     fighterOneName.innerText = fighter.name
     fighterOneAvatar.src = fighter.image  
     fighterOneWins.innerText = `${fighter.name} wins!`
-    fighterOneDiv.append(fighterOneName, fighterOneAvatar, fighterOneWins)
     vs.innerText = "VS."
     vsDiv.append(vs)
+    fighterOneDiv.append(fighterOneName, fighterOneAvatar, fighterOneWins)
     battleContainer.append(fighterOneDiv, vsDiv)
     
     fighterOneWins.addEventListener('click', function(){
         let fighterId = displayFighter1.id
-        fetch(`https://battle-brawl.herokuapp.com/fighters/${fighterId}`,{
+        fetch(`http://localhost:3000/fighters/${fighterId}`,{
             method: "PATCH",
             headers: { 
                 "Content-Type": "application/json" 
@@ -88,7 +90,8 @@ function turnFighter1ToCard(fighter){
             .then(function (fighterNewWins) {
                 displayFighter1 = fighterNewWins;
             })
-        fetch("https://battle-brawl.herokuapp.com/fighters")
+
+        fetch("http://localhost:3000/fighters")
             .then(res => res.json())
             .then(function(fightersArr){
                 const randomFighter = fightersArr[Math.floor(
@@ -117,7 +120,7 @@ function turnFighter2ToCard(fighter){
     
     fighterTwoWins.addEventListener('click', function(){
         let fighterId = displayFighter2.id
-        fetch(`https://battle-brawl.herokuapp.com/fighters/${fighterId}`,{
+        fetch(`http://localhost:3000/fighters/${fighterId}`,{
             method: "PATCH",
             headers: { 
                 "Content-Type": "application/json" 
@@ -130,7 +133,8 @@ function turnFighter2ToCard(fighter){
             .then(function (fighterNewWins) {
                 displayFighter2 = fighterNewWins;
             })
-        fetch("https://battle-brawl.herokuapp.com/fighters")
+
+        fetch("http://localhost:3000/fighters")
             .then(res => res.json())
             .then(function(fightersArr){
                 const randomFighter = fightersArr[Math.floor(
@@ -153,8 +157,8 @@ allFightersButton.addEventListener('click', function(){
     formContainer.innerHTML = ""
     battleContainer.innerHTML = ""
     allFighterContainer.innerHTML = ""
-
-    fetch("https://battle-brawl.herokuapp.com/fighters")
+    newFighterContainer.innerHTML = ""
+    fetch("http://localhost:3000/fighters")
         .then(res => res.json())
         .then(function(fighters){
             fighters.forEach(function(fighter){
@@ -177,9 +181,9 @@ allFightersButton.addEventListener('click', function(){
                 // let fighterSpeed = document.createElement("p")
                 //     fighterSpeed.innerText = `Speed: ${fighter.stats.speed}`
                 //     fighterSpeed.className = "stats"
-                let fighterIntelligence = document.createElement("p")
-                    fighterIntelligence.innerText = `Intelligence: ${fighter.stats.intelligence}` 
-                    fighterIntelligence.className = "stats"
+                // let fighterIntelligence = document.createElement("p")
+                //     fighterIntelligence.innerText = `Intelligence: ${fighter.stats.intelligence}` 
+                //     fighterIntelligence.className = "stats"
                 fighterCard.append(fighterName, fighterAvatar)   
                 allFighterContainer.append(fighterCard)
             })
@@ -191,7 +195,8 @@ leaderBoardButton.addEventListener('click', function() {
     formContainer.innerHTML = ""
     battleContainer.innerHTML = ""
     allFighterContainer.innerHTML = ""
-    fetch('https://battle-brawl.herokuapp.com/fighters')
+    newFighterContainer.innerHTML = ""
+    fetch('http://localhost:3000/fighters')
          .then(res => res.json())
          .then(function(fightersArr){
              let copyofFightersArr = [...fightersArr] 
@@ -236,6 +241,7 @@ addFighterButton.addEventListener("click", function(e){
     formContainer.innerHTML = ""
     battleContainer.innerHTML = ""
     allFighterContainer.innerHTML = ""
+    newFighterContainer.innerHTML = ""
     let newFighterForm = document.createElement("form")
     let userFighterName = document.createElement("input")
         userFighterName.placeholder = "Fighter name"
@@ -252,11 +258,11 @@ addFighterButton.addEventListener("click", function(e){
         alert()
     }
     
-formContainer.addEventListener("submit", function(e){
+newFighterForm.addEventListener("submit", function(e){
     e.preventDefault()
     let userFighterInput = e.target.userFighterNameId.value
     let userFighterImg = e.target.userFighterAvatarId.value
-    fetch(`https://battle-brawl.herokuapp.com/fighters`,{
+    fetch(`http://localhost:3000/fighters`,{
         method: 'POST',
         headers: {
             "Content-Type" : "application/json",
@@ -272,10 +278,16 @@ formContainer.addEventListener("submit", function(e){
         .then(function(userNewFighter){
             newFighter = userNewFighter
             newFighter.id = userNewFighter.id
-            newFighter.innerText = userNewFighter.name
-            newFighter.src = userNewFighter.image
-            leaderboardContainer.append(newFighter)
-            leaderboardContainer.append(newFighter)
+            let newFighterDiv = document.createElement('div')
+            let newFighterName = document.createElement('p')
+                newFighterName.className = "fighterCardName"
+                newFighterName.innerText = userNewFighter.name
+            let newFighterAvatar = document.createElement('img')
+                newFighterAvatar.className = "fighterCardAvatar"
+                newFighterAvatar.alt = userNewFighter.name
+                newFighterAvatar.src = userNewFighter.image
+            newFighterDiv.append(newFighterName, newFighterAvatar)
+            newFighterContainer.append(newFighterDiv)
         })
 
     })
