@@ -9,11 +9,11 @@ let leaderboardContainer = document.querySelector("#leaderboardContainer")
 let formContainer = document.querySelector("#formContainer")
 
 let fighterOneDiv = document.createElement('div')
-fighterOneDiv.className = "fighterCardDiv"
+fighterOneDiv.className = "battleCardDiv"
 let fighterOneName = document.createElement('p')
-fighterOneName.className = "fighterCardName"
+fighterOneName.className = "battleCardName"
 let fighterOneAvatar = document.createElement('img')
-fighterOneAvatar.className = "fighterCardAvatar"
+fighterOneAvatar.className = "battleCardAvatar"
 let fighterOneStats = document.createElement('p')
 let fighterOneWins = document.createElement('button')
 fighterOneWins.className = "winButton"
@@ -22,11 +22,11 @@ let vsDiv = document.createElement('div')
 vs.id = "vs"
 
 let fighterTwoDiv = document.createElement('div')
-fighterTwoDiv.className = "fighterCardDiv"
+fighterTwoDiv.className = "battleCardDiv"
 let fighterTwoName = document.createElement('p')
-fighterTwoName.className = "fighterCardName"
+fighterTwoName.className = "battleCardName"
 let fighterTwoAvatar = document.createElement('img')
-fighterTwoAvatar.className = "fighterCardAvatar"
+fighterTwoAvatar.className = "battleCardAvatar"
 let fighterTwoStats = document.createElement('p')
 let fighterTwoWins = document.createElement('button')
 fighterTwoWins.className = "winButton"
@@ -163,10 +163,11 @@ allFightersButton.addEventListener('click', function(){
                     fighterCard.className = "fighterCard"
                 let fighterName = document.createElement("p")
                     fighterName.innerText = fighter.name
-                    fighterName.className = "fighterName"    
+                    fighterName.className = "fighterCardName"    
                 let fighterAvatar = document.createElement("img")
                     fighterAvatar.src = fighter.image
                     fighterAvatar.alt = fighter.name
+                    fighterAvatar.className = "fighterCardAvatar"
                 let fighterStrength = document.createElement("p")
                     fighterStrength.innerText = `Strength: ${fighter.stats.strength}`
                     fighterStrength.className = "stats"
@@ -204,11 +205,13 @@ leaderBoardButton.addEventListener('click', function() {
                         fighterCard.className = "fighterCard"
                     let fighterName = document.createElement("p")
                         fighterName.innerText = fighter.name
-                        fighterName.className = "fighterName"    
+                        fighterName.className = "fighterCardName"    
                     let fighterAvatar = document.createElement("img")
                         fighterAvatar.src = fighter.image
                         fighterAvatar.alt = fighter.name
+                        fighterAvatar.className = "fighterCardAvatar"
                     let fighterWins = document.createElement("p")
+                        fighterWins.className = "fighterWins"
                         fighterWins.innerText = `${fighter.name} has ${fighter.wins} wins!`
                     let fighterStrength = document.createElement("p")
                         fighterStrength.innerText = `Strength: ${fighter.stats.strength}`
@@ -249,26 +252,26 @@ addFighterButton.addEventListener("click", function(e){
         alert()
     }
     
-    formContainer.addEventListener("submit", function(e){
-        e.preventDefault()
-        let userFighterInput = e.target.userFighterNameId.value
-        let userFighterImg = e.target.userFighterAvatarId.value
-        fetch(`http://localhost:3000/fighters`,{
-            method: 'POST',
-            headers: {
-                "Content-Type" : "application/json",
-                Accept: "application/json"     
-            },
-            body: JSON.stringify({
-                name: userFighterInput,
-                image: userFighterImg,
-                wins: 0
-            })
+formContainer.addEventListener("submit", function(e){
+    e.preventDefault()
+    let userFighterInput = e.target.userFighterNameId.value
+    let userFighterImg = e.target.userFighterAvatarId.value
+    fetch(`http://localhost:3000/fighters`,{
+        method: 'POST',
+        headers: {
+            "Content-Type" : "application/json",
+            Accept: "application/json"     
+        },
+        body: JSON.stringify({
+            name: userFighterInput,
+            image: userFighterImg,
+            wins: 0
         })
-            .then(res => res.json())
-            .then(function(userNewFighter){
-                newFighter = userNewFighter
-            })
+    })
+        .then(res => res.json())
+        .then(function(userNewFighter){
+            newFighter = userNewFighter
+        })
 
     })
 })
