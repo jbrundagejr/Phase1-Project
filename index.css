@@ -1,6 +1,53 @@
 h1 {
     text-align: center;
-}
+    color: brown;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+    border: 5px lightcoral;}
+    
 div#nav {
     text-align: center;
+}
+button{
+    color: rgb(44, 34, 139);
+     background-color:fuchsia;
+    box-shadow: grey;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;   
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /* width: 700px;
+    height: 600px; */
+    border-style: double;
+    border-width: 10px; 
+    max-width:600px;
+    max-height:600px;
+    width: auto;
+    height: auto;
+      
+    
+}
+p{
+    text-align: center;
+    padding: 10px;
+    border: 30px rgb(98, 4, 4);
+    background-blend-mode: darken;
+}
+div#formContainer{
+    background-color: lawngreen;
+}
+#formContainer{
+    display: block;
+    text-align: center;
+    margin-top: 90%;
+    
+}
+body{
+    background-color: cadetblue;
 }
